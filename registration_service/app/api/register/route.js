@@ -5,7 +5,7 @@ import { createSession } from '@/lib/session';
 export async function POST(req) {
     try {
         await client.connectDB();
-        let { name, email, password } = await req.json();
+        let { name, email, password, number } = await req.json();
 
         if (!name || !email || !password) {
             return new Response(JSON.stringify({ error: 'Name, email and password are required' }), { status: 400 });
@@ -22,8 +22,8 @@ export async function POST(req) {
         password = await bcrypt.hash(password, 10);
         // Create a new user
         const newUser = await client.queryDB(
-            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING userId',
-            [name, email, password]
+            'INSERT INTO users (name, email, password, number) VALUES ($1, $2, $3, $4) RETURNING user_id',
+            [name, email, password, number]
         );
         console.log('User ID:', newUser[0].user_id);
         
