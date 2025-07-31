@@ -1,13 +1,8 @@
-import { Kafka, logLevel } from 'kafkajs';
+import kafka from '../lib/kafka.js';
 import sgMail from '@sendgrid/mail';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const kafka = new Kafka({
-    clientId: 'my-app',
-    brokers: ['localhost:9092'],
-    // logLevel: logLevel.NOTHING
-});
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const consumer = kafka.consumer({ groupId: 'email' });

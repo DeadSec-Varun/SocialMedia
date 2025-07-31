@@ -1,12 +1,12 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import cors from 'cors';
 
-var feedRouter = require('./routes/feed');
+import feedRouter from './routes/feed.js';
 
-var app = express();
+const app = express();
 app.use(cors({
     origin: 'http://localhost:4028',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -18,8 +18,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(path.resolve(), 'public')));
 
 app.use('/api/feed', feedRouter);
 
-module.exports = app;
+export default app;

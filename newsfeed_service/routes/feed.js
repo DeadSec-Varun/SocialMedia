@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var {queryDB} = require('../lib/postgres')
+import express from 'express';
+import { queryDB } from '../lib/postgres.js';
+
+const router = express.Router();
 
 
 // GET recommened friends
@@ -57,4 +58,4 @@ router.get('/:user_id', async function (req, res) {
 });
 
 
-module.exports = router;
+export default router;

@@ -1,13 +1,7 @@
 import { Worker } from "bullmq";
 import { redis as connection } from "../lib/redis.js";
 import { queryDB } from "../lib/postgres.js";
-import { Kafka, logLevel } from 'kafkajs';
-
-const kafka = new Kafka({
-    clientId: 'my-app',
-    brokers: ['localhost:9092'],
-    // logLevel: logLevel.NOTHING
-});
+import kafka from "../lib/kafka.js";
 
 const producer = kafka.producer();
 await producer.connect();

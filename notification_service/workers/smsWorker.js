@@ -1,13 +1,7 @@
-import { Kafka, logLevel } from 'kafkajs';
+import kafka from '../lib/kafka.js';
 import twilio from 'twilio';
 import dotenv from 'dotenv';
 dotenv.config();
-
-const kafka = new Kafka({
-    clientId: 'my-app',
-    brokers: ['localhost:9092'],
-    // logLevel: logLevel.NOTHING
-});
 
 const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 

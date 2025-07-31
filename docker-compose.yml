@@ -6,12 +6,12 @@ services:
       - "6379:6379"
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: zookeeper:latest
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: bitnami/kafka:latest
     ports:
       - "9092:9092"
     environment:
@@ -33,19 +33,23 @@ services:
     ports:
       - "4001:4001"
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
 
   notification:
     build: ./notification_service
     ports:
       - "8002:8002"
     depends_on:
-      - kafka
-      - redis
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   registration:
     build: ./registration_service
     ports:
       - "3001:3001"
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy

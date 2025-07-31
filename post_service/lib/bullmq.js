@@ -1,8 +1,9 @@
 import { Queue } from 'bullmq';
+import { redis as connection } from './redis.js';
 
-const pushQueue = new Queue('pushQueue');
-const pullQueue = new Queue('pullQueue');
-const notificationQueue = new Queue('notificationQueue');
+const pushQueue = new Queue('pushQueue', { connection });
+const pullQueue = new Queue('pullQueue', { connection });
+const notificationQueue = new Queue('notificationQueue', { connection });
 
 export async function pushPostsToQueue(postData) {
     try {

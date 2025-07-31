@@ -1,11 +1,5 @@
-import { Kafka, logLevel } from 'kafkajs';
+import kafka from '../lib/kafka.js';
 import axios from 'axios';
-
-const kafka = new Kafka({
-    clientId: 'my-app',
-    brokers: ['localhost:9092'],
-    // logLevel: logLevel.NOTHING
-});
 
 const consumer = kafka.consumer({ groupId: 'event' });
 
