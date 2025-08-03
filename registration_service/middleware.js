@@ -6,7 +6,7 @@ export function middleware(req) {
   const origin = req.headers.get('origin');
   const response = NextResponse.next();
 
-  const allowedOrigins = ['http://localhost:4028'];
+  const allowedOrigins = ['https://varun-social.vercel.app'];
 
   if (origin && allowedOrigins.includes(origin)) {
     response.headers.set('Access-Control-Allow-Origin', origin);

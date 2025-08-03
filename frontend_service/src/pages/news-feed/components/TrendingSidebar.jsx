@@ -5,7 +5,7 @@ import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
 import Button from '../../../components/ui/Button';
 import RecommendationSkeleton from './RecommendationSkeleton';
-import SuggestedUser from './Suggesteduser';
+import SuggestedUser from './SuggestedUser';
 
 const TrendingSidebar = () => {
 

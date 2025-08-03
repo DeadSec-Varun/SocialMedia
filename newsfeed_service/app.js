@@ -8,7 +8,7 @@ import feedRouter from './routes/feed.js';
 
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:4028',
+    origin: 'https://varun-social.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true, // Allow credentials if needed
     allowedHeaders: ['Content-Type', 'Authorization']

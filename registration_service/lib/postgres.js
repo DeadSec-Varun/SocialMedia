@@ -1,14 +1,19 @@
 import 'dotenv/config'; // This loads .env into process.env
-import { Client } from "pg";
+import { Pool } from "pg";
 
-let client;
+let pool;
 
 export async function connectDB() {
-    if (!client) {
+    if (!pool) {
         try {
-            client  = new Client();
-            await client.connect();
-            console.log("PostgreSQL connected successfully");
+            pool  = new Pool();
+            const client = await pool.connect();
+            console.log("PostgreSQL pool connected successfully");
+            client.release(); // Release the client back to the pool
+             // Listen for errors so app doesn’t crash
+            pool.on('error', (err) => {
+                console.error('Unexpected PG pool error', err);
+            });
         } catch (error) {
             console.error("Failed to connect to PostgreSQL:", error);
             throw error;
@@ -19,11 +24,11 @@ export async function connectDB() {
 }
 
 export async function disconnectDB() {
-    if (client) {
+    if (pool) {
         try {
-            await client.end();
-            client = null;
-            console.log("PostgreSQL disconnected successfully");
+            await pool.end();
+            pool = null;
+            console.log("PostgreSQL pool disconnected successfully");
         } catch (error) {
             console.error("Failed to disconnect from PostgreSQL:", error);
             throw error;
@@ -31,8 +36,10 @@ export async function disconnectDB() {
     }
 }
 export async function queryDB(query, params = []) {
+    if(!pool)
+        await connectDB();
     try {
-        const res = await client.query(query, params);
+        const res = await pool.query(query, params);
         return res.rows;
     }
     catch (error) {

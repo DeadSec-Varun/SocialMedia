@@ -17,7 +17,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:4028', // frontend origin
+  origin: 'https://varun-social.vercel.app', // frontend origin
   credentials: true                // allow cookies
 }));
 
